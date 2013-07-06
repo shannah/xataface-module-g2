@@ -98,7 +98,7 @@ class actions_g2_advanced_find_form {
 			
 			$vocab = $el->{'data-xf-vocabulary'};
 			if ( !$vocab ) continue;
-			$options = array(''=>'', '='=>'<Empty>');
+			$options = array(''=>'', '='=>df_translate('g2_advanced_find_form.empty_list_label',"<Empty>"));
 			$o2 = $table->getValuelist($vocab);
 			if ( $o2 ){
 				foreach ($o2 as $k=>$v){
