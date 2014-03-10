@@ -53,11 +53,11 @@
 				
 				<div id="top-menu-bar">
 					<div id="top-right-menu-bar">
-						{actions_menu category=top_right_menu_bar maxcount=4 class="right"}
+						{actions_menu category=top_right_menu_bar maxcount=$G2->get_property('top_right_menu_bar.size', 4) class="right"}
 					</div>
 				
 					<div id="top-left-menu-bar">
-						{actions_menu category=top_left_menu_bar maxcount=7}
+						{actions_menu category=top_left_menu_bar maxcount=$G2->get_property('top_left_menu_bar.size', 7)}
 					</div>
 					<div style="clear:both; height: 1px;"></div>
 				

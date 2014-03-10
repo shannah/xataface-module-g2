@@ -208,4 +208,13 @@ class modules_g2 {
 		
 		
 	}
+	
+	function get_property($key, $default=null){
+		$app =& Dataface_Application::getInstance();
+		if ( @$app->_conf['modules_g2'] and isset($app->_conf['modules_g2'][$key]) ){
+			return $app->_conf['modules_g2'][$key];
+		} else {
+			return $default;
+		}
+	}
 }
