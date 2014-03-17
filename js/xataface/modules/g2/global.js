@@ -670,14 +670,16 @@
 					
 				function handleShowAdvancedFind(){
 					advancedFindForm.show();
-					$(this).text('Hide Advanced Search');
+					//$(this).text('Hide Advanced Search');
+					$(this).addClass('expanded').removeClass('collapsed');
 					$(this).unbind('click', handleShowAdvancedFind);
 					$(this).bind('click', handleHideAdvancedFind);
 				};
 				
 				function handleHideAdvancedFind(){
 					advancedFindForm.hide();
-					$(this).text('Advanced Search');
+					//$(this).text('Advanced Search');
+					$(this).addClass('collapsed').removeClass('expanded');
 					$(this).unbind('click', handleHideAdvancedFind);
 					$(this).bind('click', handleShowAdvancedFind);
 				}

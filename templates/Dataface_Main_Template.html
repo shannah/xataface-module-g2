@@ -158,7 +158,10 @@
                                                                                                                value='{translate id="main.search.button.label" tableObj=$ENV.table_object}Search {$ENV.table_object->getLabel()|escape}{/translate}' 
                                                                                                                id="search_submit_button" 
                                                                                                         />
-													<a class="xf-show-advanced-find">Advanced Search</a>
+													<a class="xf-show-advanced-find collapsed">
+														<span class="collapsed">{translate id="templates.G2.advanced_search.label"}Advanced Search{/translate}</span>
+														<span class="expanded">{translate id="templates.G2.hide_advanced_search.label"}Hide Advanced Search{/translate}</span>
+													</a>
 													{block name="after_search_form_submit"}
 												</form>
 											

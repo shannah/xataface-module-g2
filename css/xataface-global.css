@@ -2909,3 +2909,6 @@ img.blob-preview {
     max-width: 200px;
     max-height: 200px;
 }
+
+a.xf-show-advanced-find.collapsed > span.expanded { display:none;}
+a.xf-show-advanced-find.expanded > span.collapsed {display:none;}
