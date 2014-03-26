@@ -2912,3 +2912,7 @@ img.blob-preview {
 
 a.xf-show-advanced-find.collapsed > span.expanded { display:none;}
 a.xf-show-advanced-find.expanded > span.collapsed {display:none;}
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
