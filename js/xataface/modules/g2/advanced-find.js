@@ -24,6 +24,9 @@
 		this.loaded = false;
 		this.loading = false;
 		this.installed = false;
+		if ( window.location.hash === '#search' ){
+			this.show();
+		}
 	}
 	
 	$.extend(AdvancedFind.prototype, {
@@ -40,7 +43,7 @@
 		callback = callback || function(){};
 		var self = this;
 		$(this.el).load(DATAFACE_SITE_HREF+'?-table='+encodeURIComponent(this.table)+'&-action=g2_advanced_find_form', function(){
-			
+			decorateConfigureButton(this);
 			var params = XataJax.util.getRequestParams();
 			var widgets = [];
 			var formEl = this;
@@ -135,7 +138,9 @@
 	
 	function show(){
 		//alert('hello');
+		
 		this.ready(function(){
+			window.location.hash='#search';
 			//alert('now');
 			if ( !this.loaded ) throw "Cannot show advanced find until it is ready.";
 			//alert('here');
@@ -155,13 +160,69 @@
 	
 	function hide(){
 		this.ready(function(){
+			window.location.hash = '';
 			if ( !this.loaded || !this.installed ) return;
 			if ( $(this.el).is(':visible') ){
 				$(this.el).slideUp();
 			}
 		});
 	}
+	function decorateConfigureButton(el){
+	// Decorate the show/hide columns action
+		$('li.configure-advanced-find-form-action a', el).click(function(){
+			var iframe = $('<iframe>')
+				.attr('width', '100%')
+				.attr('height', $(window).height() * 0.8)
+				
+				.on('load', function(){
+					var winWidth = $(window).width() * 0.8;
+					var width = Math.min(800, winWidth);
+					$(this).width(width);
+					dialog.dialog("option" , "position", "center");
+					
+					var showHideController = iframe.contentWindow.xataface.controllers.ShowHideColumnsController;
+					showHideController.saveCallbacks.push(function(data){
+						data.preventDefault = true;
+						dialog.dialog('close');
+						window.location.reload(true);
+					});
+					
+				})
+				.attr('src', $(this).attr('href')+'&--format=iframe')
+				.get(0);
+				;
+			var dialog = $("<div></div>").append(iframe).appendTo("body").dialog({
+				autoOpen: false,
+				modal: true,
+				resizable: false,
+				width: "auto",
+				height: "auto",
+				close: function () {
+					$(iframe).attr("src", "");
+				},
+				buttons : {
+					'Save' : function(){
+						$('button.save', iframe.contentWindow.document.body).click();
+					}
+				},
+				create: function(event, ui) {
+				   $('body').addClass('stop-scrolling');
+				 },
+				 beforeClose: function(event, ui) {
+				   $('body').removeClass('stop-scrolling');
+				 }
+			});
+			/*jQuery(iframe).dialog({
+				autoOpen : true,
+				modal : true,
+				resizable : false,
+				
+				width : "auto",
+				height: "auto"
+			});*/
+			dialog.dialog("option", "title", "Show/Hide Columns").dialog("open");
+			return false;
+		});
 	
-	
-
+	}
 })();
