@@ -2916,3 +2916,5 @@ a.xf-show-advanced-find.expanded > span.collapsed {display:none;}
   height: 100%;
   overflow: hidden;
 }
+
+.xf-form-group-inline div.field {float:left;}
