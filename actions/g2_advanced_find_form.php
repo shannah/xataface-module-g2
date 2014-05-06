@@ -103,6 +103,8 @@ class actions_g2_advanced_find_form {
 			$fieldTableName = $el->{'data-xf-table'};
 			if ( $fieldTableName ){
 				$fieldTable = Dataface_Table::loadTable($fieldTableName);
+			} else {
+				$fieldTable = null;
 			}
 			if ( !$fieldTable ){
 				$fieldTable = $table;
