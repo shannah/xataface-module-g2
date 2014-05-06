@@ -99,7 +99,15 @@ class actions_g2_advanced_find_form {
 			$vocab = $el->{'data-xf-vocabulary'};
 			if ( !$vocab ) continue;
 			$options = array(''=>'', '='=>df_translate('g2_advanced_find_form.empty_list_label',"<Empty>"));
-			$o2 = $table->getValuelist($vocab);
+			
+			$fieldTableName = $el->{'data-xf-table'};
+			if ( $fieldTableName ){
+				$fieldTable = Dataface_Table::loadTable($fieldTableName);
+			}
+			if ( !$fieldTable ){
+				$fieldTable = $table;
+			}
+			$o2 = $fieldTable->getValuelist($vocab);
 			if ( $o2 ){
 				foreach ($o2 as $k=>$v){
 					$options[$k] = $v;
