@@ -21,17 +21,22 @@ class modules_g2 {
 	
 	
 	public function __construct(){
-		
+		$app = Dataface_Application::getInstance();
 		$s = DIRECTORY_SEPARATOR;
-		df_register_skin('g2', dirname(__FILE__).$s.'templates');
-		Dataface_Application::getInstance()->registerEventListener('filterTemplateContext', array($this, 'filterTemplateContext'));
+		
+		if ( isset($app->version) and $app->version >= 2 ){
+			$app->registerEventListener('SkinTool.ready', array($this, 'registerSkin'), true);
+		} else {
+			df_register_skin('g2', dirname(__FILE__).$s.'templates');
+		}
+		$app->registerEventListener('filterTemplateContext', array($this, 'filterTemplateContext'));
 		$jt = Dataface_JavascriptTool::getInstance();
 		$jt->ignore('jquery.packed.js');
 		$jt->ignore('jquery-ui.min.js');
 		$jt->ignore('xatajax.core.js');
 		$jt->ignore('xatajax.util.js');
 		$jt->ignoreCss('jquery-ui/jquery-ui.css');
-		$app = Dataface_Application::getInstance();
+		
 		$app->addHeadContent('<script src="'.htmlspecialchars(DATAFACE_URL.'/modules/XataJax/js/jquery.packed.js').'"></script>');
 		$app->addHeadContent('<script src="'.htmlspecialchars(DATAFACE_URL.'/modules/XataJax/js/jquery-ui.min.js').'"></script>');
 		$app->addHeadContent('<script src="'.htmlspecialchars(DATAFACE_URL.'/modules/XataJax/js/xatajax.core.js').'"></script>');
@@ -78,6 +83,12 @@ class modules_g2 {
 		
 		
 	}
+	
+	public function registerSkin(){
+		$s = DIRECTORY_SEPARATOR;
+		df_register_skin('g2', dirname(__FILE__).$s.'templates');
+	}
+	
 	
 	/**
 	 * We just want this to run before the left column is rendered.. We're not using it for output
